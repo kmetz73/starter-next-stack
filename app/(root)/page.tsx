@@ -5,8 +5,8 @@ export const metadata = {
 const HomePage = async () => {
   return (
     <>
-      <h1 className="default-container text-4xl">
-        Welcome to your Starter Next app!!
+      <h1 className="default-container text-6xl">
+        Welcome to the Infidels Roster Page !!
       </h1>
     </>
   );

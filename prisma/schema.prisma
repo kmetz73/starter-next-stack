@@ -1,0 +1,20 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rank      String?
+  firstName String   @default("NO_NAME")
+  lastName  String   @default("NO_NAME")
+  callSign  String?
+  email     String   @unique(map: "user_email_idx")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

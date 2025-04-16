@@ -4,15 +4,12 @@ export const navLinks = [
     href: '/admin/overview',
   },
   {
-    title: 'Products',
+    title: 'Dues',
     href: '/admin/products',
   },
-  {
-    title: 'Orders',
-    href: '/admin/orders',
-  },
+
   {
     title: 'Users',
-    href: '/admin/users',
+    href: '/users',
   },
 ];

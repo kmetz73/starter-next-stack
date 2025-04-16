@@ -48,7 +48,7 @@ const DeleteDialog = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action can&post be undone
+            This action can&apos;t be unode
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

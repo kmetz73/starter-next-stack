@@ -3,6 +3,7 @@ import { APP_NAME } from '@/lib/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import Menu from '@/components/header/menu';
+import MainNav from './main-nav';
 
 const Header = () => {
   return (
@@ -11,7 +12,7 @@ const Header = () => {
         <div className="flex-start">
           <Link href="/" className="flex-start">
             <Image
-              src="/images/logo.png"
+              src="/images/infidel-logo.jpg"
               alt={`${APP_NAME} logo`}
               width={48}
               height={48}
@@ -21,6 +22,7 @@ const Header = () => {
               {APP_NAME}
             </span>
           </Link>
+          <MainNav className="ml-4" />
         </div>
         <Menu />
       </div>
