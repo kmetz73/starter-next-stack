@@ -18,7 +18,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { useState } from 'react';
 
 const UpdateUserForm = ({
   user,
@@ -27,8 +26,17 @@ const UpdateUserForm = ({
 }) => {
   const router = useRouter();
   const form = useForm<z.infer<typeof updateUserSchema>>({
+    defaultValues: {
+      id: user.id,
+      rank: user.rank,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      callSign: user.callSign,
+      email: user.email,
+      isActive: user.isActive, // or false, depending on the user
+      // ...other fields
+    },
     resolver: zodResolver(updateUserSchema),
-    defaultValues: user,
   });
 
   const onSubmit = async (values: z.infer<typeof updateUserSchema>) => {
@@ -52,7 +60,7 @@ const UpdateUserForm = ({
 
     return;
   };
-  const [isActive, setIsActive] = useState(false);
+
   return (
     <Form {...form}>
       <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
@@ -196,18 +204,13 @@ const UpdateUserForm = ({
           <FormField
             control={form.control}
             name="isActive"
-            render={({}: {
-              field: ControllerRenderProps<
-                z.infer<typeof updateUserSchema>,
-                'isActive'
-              >;
-            }) => (
+            render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Active</FormLabel>
                 <FormControl>
                   <Switch
-                    checked={isActive}
-                    onCheckedChange={(checked) => setIsActive(checked)}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
                 <FormMessage />

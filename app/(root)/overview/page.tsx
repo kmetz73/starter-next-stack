@@ -39,17 +39,17 @@ const OverviewPage = async () => {
               <div className="flex justify-between mt-1">
                 <div className="flex-1">
                   <p className="text-2xl font-bold">
-                    {formatNumber(summary.userCount)}
+                    {formatNumber(summary.total || 0)}
                   </p>
                 </div>
                 <div className="flex-1">
                   <p className="text-2xl font-bold">
-                    {formatNumber(summary.userCount)}
+                    {formatNumber(summary.active || 0)}
                   </p>
                 </div>
                 <div className="flex-1">
                   <p className="text-2xl font-bold">
-                    {formatNumber(summary.userCount)}
+                    {formatNumber((summary.total || 0) - (summary.active || 0))}
                   </p>
                 </div>
               </div>

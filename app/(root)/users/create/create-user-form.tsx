@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 
 // Infer the strict CreateUser type
 type CreateUserType = z.infer<typeof createUserSchema>;
@@ -26,9 +27,17 @@ type CreateUserType = z.infer<typeof createUserSchema>;
 const CreateUserForm = () => {
   const router = useRouter();
 
-  const form = useForm<CreateUserType>({
+  const form = useForm<z.infer<typeof createUserSchema>>({
+    // Use userDefaultValues or specific initial values for a create form
+    defaultValues: {
+      rank: userDefaultValues.rank, // Or simply ''
+      firstName: userDefaultValues.firstName, // Or ''
+      lastName: userDefaultValues.lastName, // Or ''
+      callSign: userDefaultValues.callSign, // Or ''
+      email: userDefaultValues.email, // Or ''
+      isActive: userDefaultValues.isActive, // Or false/true as needed
+    },
     resolver: zodResolver(createUserSchema),
-    defaultValues: userDefaultValues,
   });
 
   const onSubmit: SubmitHandler<CreateUserType> = async (values) => {
@@ -132,6 +141,23 @@ const CreateUserForm = () => {
                   disabled={false}
                   placeholder="Enter users email"
                   {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* isActive */}
+        <FormField
+          control={form.control}
+          name="isActive"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Active</FormLabel>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />

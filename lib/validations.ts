@@ -7,6 +7,7 @@ export const createUserSchema = z.object({
   lastName: z.string().min(3, 'Name must be at least 3 characters long'),
   callSign: z.string(),
   email: z.string().min(3, 'Please enter a valid email address'),
+  isActive: z.boolean().optional(),
 });
 
 // Schema for updating users
@@ -19,3 +20,4 @@ export const updateUserSchema = z.object({
   email: z.string().min(3, 'Please enter a valid email address'),
   isActive: z.boolean(),
 });
+//  createUserSchema

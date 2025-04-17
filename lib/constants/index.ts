@@ -43,6 +43,7 @@ export const userDefaultValues = {
   lastName: '',
   callSign: '',
   email: '',
+  isActive: false,
 };
 
 export const USER_ROLES = process.env.USER_ROLES

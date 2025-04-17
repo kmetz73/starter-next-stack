@@ -73,6 +73,7 @@ export async function updateUser(user: z.infer<typeof updateUserSchema>) {
         lastName: user.lastName,
         callSign: user.callSign,
         email: user.email,
+        isActive: user.isActive,
       },
     });
 
@@ -95,6 +96,7 @@ export async function createUser(user: z.infer<typeof createUserSchema>) {
         lastName: user.lastName,
         callSign: user.callSign,
         email: user.email,
+        isActive: user.isActive,
       },
     });
 
@@ -109,8 +111,10 @@ export async function createUser(user: z.infer<typeof createUserSchema>) {
 //  Get  user count
 export async function getUserCount() {
   const prisma = new PrismaClient();
-  const userCount = await prisma.user.count();
-  return {
-    userCount,
-  };
+  const total = await prisma.user.count();
+  const active = await prisma.user.count({
+    where: { isActive: true },
+  });
+
+  return { total, active };
 }
