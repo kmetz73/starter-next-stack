@@ -19,17 +19,29 @@ export async function getUserById(userId: string) {
 
 // Get all users
 export async function getAllUsers({
+  page = 1,
   limit = PAGE_SIZE,
-  page,
 }: {
+  page?: number;
   limit?: number;
-  page: number;
 }) {
   const prisma = new PrismaClient();
+  if (page < 1) page = 1;
+  if (limit < 1) limit = PAGE_SIZE;
   const data = await prisma.user.findMany({
+    select: {
+      id: true,
+      rank: true,
+      firstName: true,
+      lastName: true,
+      callSign: true,
+      email: true,
+      isActive: true,
+    },
     skip: (page - 1) * limit,
     take: limit,
   });
+
   const totalUsers = await prisma.user.count();
   const totalPages = Math.ceil(totalUsers / limit);
   return { data, totalPages };
@@ -92,4 +104,13 @@ export async function createUser(user: z.infer<typeof createUserSchema>) {
   } catch (error) {
     return { success: false, message: formatErrors(error) };
   }
+}
+
+//  Get  user count
+export async function getUserCount() {
+  const prisma = new PrismaClient();
+  const userCount = await prisma.user.count();
+  return {
+    userCount,
+  };
 }

@@ -17,6 +17,7 @@ const UpdateUserPage = async (props: { params: Promise<{ id: string }> }) => {
     email: user.email,
     rank: user.rank || undefined,
     callSign: user.callSign || undefined,
+    isActive: user.isActive || false,
   };
 
   return (

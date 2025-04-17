@@ -17,4 +17,5 @@ model User {
   email     String   @unique(map: "user_email_idx")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
 }

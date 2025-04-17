@@ -1,4 +1,5 @@
 import DeleteDialog from '@/components/buttons/delete-dialog';
+import Pagination from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -9,7 +10,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { deleteUser, getAllUsers } from '@/lib/actions/user.actions';
-import { formatId } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -33,24 +33,25 @@ const RoasterPage = async (props: {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>ID</TableHead>
             <TableHead>RANK</TableHead>
             <TableHead>FIRST NAME</TableHead>
             <TableHead>LAST NAME</TableHead>
             <TableHead>CALL SIGN</TableHead>
             <TableHead>EMAIL</TableHead>
+            <TableHead>Active</TableHead>
             <TableHead>ACTIONS</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {users.data.map((user) => (
             <TableRow key={user.id}>
-              <TableCell>{formatId(user.id)}</TableCell>
               <TableCell>{user.rank}</TableCell>
               <TableCell>{user.firstName}</TableCell>
               <TableCell>{user.lastName}</TableCell>
               <TableCell>{user.callSign}</TableCell>
               <TableCell>{user.email}</TableCell>
+              <TableCell>{user.isActive ? 'Yes' : 'No'}</TableCell>
+              {/* Actions */}
               <TableCell className="flex gap-1">
                 <Button asChild variant="outline" size="sm">
                   <Link href={`/users/${user.id}`}>Edit</Link>
@@ -61,6 +62,9 @@ const RoasterPage = async (props: {
           ))}
         </TableBody>
       </Table>
+      {users.totalPages > 1 && (
+        <Pagination page={Number(page) || 1} totalPages={users?.totalPages} />
+      )}
     </div>
   );
 };

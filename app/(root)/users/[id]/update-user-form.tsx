@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { useState } from 'react';
 
 const UpdateUserForm = ({
   user,
@@ -47,8 +49,10 @@ const UpdateUserForm = ({
 
       return;
     }
+
     return;
   };
+  const [isActive, setIsActive] = useState(false);
   return (
     <Form {...form}>
       <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
@@ -180,6 +184,30 @@ const UpdateUserForm = ({
                     disabled={false}
                     placeholder="Enter  user  email"
                     {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          {/* isActive */}
+          <FormField
+            control={form.control}
+            name="isActive"
+            render={({}: {
+              field: ControllerRenderProps<
+                z.infer<typeof updateUserSchema>,
+                'isActive'
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>Active</FormLabel>
+                <FormControl>
+                  <Switch
+                    checked={isActive}
+                    onCheckedChange={(checked) => setIsActive(checked)}
                   />
                 </FormControl>
                 <FormMessage />

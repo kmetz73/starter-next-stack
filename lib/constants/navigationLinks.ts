@@ -1,7 +1,7 @@
 export const navLinks = [
   {
     title: 'Overview',
-    href: '/admin/overview',
+    href: '/overview',
   },
   {
     title: 'Dues',
